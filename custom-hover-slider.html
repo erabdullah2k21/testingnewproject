@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		* {
+   margin: 0;
+   paddign: 0;
+   box-sizing: border-box;
+}
+body {
+   background-color: #e6e6e6;
+}
+main {
+   width: 100%;
+   height: 100vh;
+   background-color: #333;
+   padding: 5vw;
+}
+ul {
+   list-style: none;
+   padding: 0;
+   display: flex;
+   gap: 1rem;
+   flex-wrap: wrap;
+}
+li {
+   width: calc(25% - 1rem);
+   aspect-ratio: 1 / 1;
+   border: 1px solid red;
+   background-color: red;
+   display: grid;
+   place-items: center;
+}
+
+.popup-modal {
+   position: fixed;
+   inset: 0;
+   // background-color: rgba(0 0 0 / .5);
+   // backdrop-filter: blur(5px);
+   display: grid;
+   place-items: center;
+   display: none;
+   pointer-event: none;
+   
+   .card-container {
+      width: calc(500px + 10vw);
+      height: calc(300px + 10vw);
+      background-color: #fff;
+      border-radius: 1rem;
+      display: flex;
+      overflow: hidden;
+   }
+}
+	</style>
+</head>
+<body>
+<main>
+   <ul id="blockItemsContainer">
+      <li id="1">
+         Item 1
+      </li>
+      <li id="2">Item 2</li>
+      <li id="3">Item 3</li>
+      <li id="4">Item 3</li>
+      <li id="5">Item 4</li>
+   </ul>
+   <div class="popup-modal">
+      <div class="card-container">
+         
+      </div>
+   </div>
+</main>
+<script type="text/javascript">
+	const blockItemCards = document.querySelectorAll('#blockItemsContainer li');
+const modalContainer = document.querySelector('.popup-modal');
+const modalCard = modalContainer.querySelector('.card-container')
+
+const data = [
+   {
+      id: "1",
+      logo: 'https://ichs.uk/wp-content/uploads/2022/07/ICHS-logo-1.png',
+      banner: 'https://ichs.uk/wp-content/uploads/2022/03/healthcare.jpg',
+      text: "International Congress for Health Specialties (ICHS) established in London, UK is dedicated to advancing continuing medical education, continuing professional development, research, innovation and excellence in healthcare for the benefit of humanity."
+   },
+   {
+      id: "2",
+      logo: 'https://ichs.uk/wp-content/uploads/2022/07/ICHS-logo-1.png',
+      banner: 'https://ichs.uk/wp-content/uploads/2022/03/healthcare.jpg',
+      text: "International Congress for Health Specialties (ICHS) established in London, UK is dedicated to advancing continuing medical education,"
+   },
+   {
+      id: "3",
+      logo: 'https://ichs.uk/wp-content/uploads/2022/07/ICHS-logo-1.png',
+      banner: 'https://ichs.uk/wp-content/uploads/2022/03/healthcare.jpg',
+      text: "International Congress  in London, UK is dedicated to advancing continuing medical education, continuing professional development, research, innovation and excellence in healthcare for the benefit of humanity."
+   },
+   {
+      id: "4",
+      logo: 'https://ichs.uk/wp-content/uploads/2022/07/ICHS-logo-1.png',
+      banner: 'https://ichs.uk/wp-content/uploads/2022/03/healthcare.jpg',
+      text: "International Conguing professional development, research, innovation and excellence in healthcare for the benefit of humanity."
+   },
+]
+
+
+blockItemCards.forEach(item => {
+   item.addEventListener("click", (e) => {
+      const thisId = e.target.id;
+      const cardData = data.filter(dataItem => dataItem.id == thisId);
+      let cardHtml = null;      
+      cardData.forEach(content => {
+         cardHtml = modalCard.innerHTML = `<div class="content" id="${content.id}">
+            <img src="${content.logo}" alt="">
+            <p>${content.text}</p>
+         </div>
+         <div class="thumbnail">
+            <img src="${content.banner}" alt="">
+         </div>`;
+      })
+      modalCard.innerHTML = cardHtml;
+      modalContainer.style.display = 'grid';
+   });
+})
+modalContainer.addEventListener("click", (e) => {
+      modalContainer.style.display = 'none';
+});
+// function myFunction(e) {
+// alert(e.target.id);
+//   document.getElementById("demo").innerHTML = "Hello World";
+// }
+</script>
+</body>
+</html>
